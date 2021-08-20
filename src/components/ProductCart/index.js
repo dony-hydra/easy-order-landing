@@ -1,4 +1,4 @@
-import { Div, Button, Text } from "atomize";
+import { Div, Text } from "atomize";
 
 import AddButton from "../Button/Add";
 
