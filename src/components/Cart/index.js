@@ -30,7 +30,7 @@ const BasicSideDrawer = ({ isOpen, onClose }) => {
           <Icon name="Cross" size="20px" />
         </Button>
         <Text tag="h1" textWeight="800" textAlign="center">
-          Giỏ hàng
+          Giỏ hàng của bạn
         </Text>
       </Div>
       <Div p={{ x: "1rem" }} h="75vh" overflow="scroll">

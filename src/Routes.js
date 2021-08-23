@@ -8,6 +8,11 @@ const routerConfig = [
     path: "/",
     component: lazy(() => import("../src/pages/Home")),
   },
+  {
+    exact: true,
+    path: "/checkout",
+    component: lazy(() => import("../src/pages/Checkout")),
+  },
 ];
 
 const renderRouter = (router) => (
