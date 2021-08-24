@@ -24,12 +24,18 @@ export const ShopProvider = (props) => {
   };
 
   const mergeProductWithCart = (products, cart) => {
-    const list = [...cart, ...products];
-    const filter = list.filter(
-      (elem, index) => list.findIndex((obj) => obj.id === elem.id) === index
-    );
-    // const unique = Array.from(new Set(list));
-    setProducts(filter);
+    const list = [...products];
+    list.forEach((element, index, arr) => {
+      const idx = cart.findIndex((e) => e.id === element.id);
+
+      if (idx > -1) {
+        arr[index] = cart[idx];
+      } else {
+        arr[index].quantity = 0;
+      }
+    });
+    setProducts([...list]);
+    setCart([...cart]);
   };
 
   const addProductToCart = (product) => {
@@ -47,11 +53,8 @@ export const ShopProvider = (props) => {
       updatedItem.quantity++;
       updatedCart[updatedItemIndex] = updatedItem;
     }
-    setCart([...updatedCart]);
     mergeProductWithCart(products, updatedCart);
   };
-
-  const updatedProductFromCart = (productId, quantiy) => {};
 
   const removeProductFromCart = (productId) => {
     // console.log("111", productId);
@@ -69,7 +72,6 @@ export const ShopProvider = (props) => {
     } else {
       updatedCart[updatedItemIndex] = updatedItem;
     }
-    setCart([...updatedCart]);
     mergeProductWithCart(products, updatedCart);
   };
 
@@ -80,7 +82,6 @@ export const ShopProvider = (props) => {
         products,
         addProductToCart,
         removeProductFromCart,
-        updatedProductFromCart,
         setListProduct,
       }}
     >

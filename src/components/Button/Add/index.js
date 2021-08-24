@@ -23,7 +23,6 @@ function AddButton({ data }) {
   };
 
   const handelReduced = () => {
-    console.log("1");
     removeProductFromCart(data?.id);
   };
 

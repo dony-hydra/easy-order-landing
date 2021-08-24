@@ -24,7 +24,7 @@ function HomePage() {
 
   useEffect(() => {
     // setListProduct(products);
-  }, [cart]);
+  }, [products, cart]);
 
   //   console.log("products -->", products);
 
