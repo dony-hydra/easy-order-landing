@@ -10,7 +10,7 @@ import ShopContext from "../../context/ShopContext";
 import { get } from "../../service/RestClient";
 
 function HomePage() {
-  const { products, setListProduct, cart } = useContext(ShopContext);
+  const { products, setListProduct } = useContext(ShopContext);
   //   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -21,12 +21,6 @@ function HomePage() {
     }
     getListProduct();
   }, []);
-
-  useEffect(() => {
-    // setListProduct(products);
-  }, [products, cart]);
-
-  //   console.log("products -->", products);
 
   return (
     <Div>
