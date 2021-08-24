@@ -41,7 +41,13 @@ function CheckoutForm() {
           <Div m={{ y: "1rem" }}>
             {/* <Text>Họ và tên:</Text> */}
             {/* register your input into the hook by invoking the "register" function */}
-            <Input {...register("example")} placeholder="Họ và tên" h="2rem" />
+            <Input
+              {...register("example")}
+              placeholder="Họ và tên"
+              h="2rem"
+              //   bg="gray300"
+              //   hoverBg="white"
+            />
           </Div>
           <Div m={{ y: "1rem" }}>
             {/* <Text>Số điện thoại:</Text> */}
@@ -110,7 +116,7 @@ function CheckoutForm() {
           </Div>
         </Div>
 
-        <Div shadow="2" p={{ xs: "1rem" }} rounded="md" bg="white">
+        {/* <Div shadow="2" p={{ xs: "1rem" }} rounded="md" bg="white">
           <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
             <Div w="100%">
               <Text>Tạm tính</Text>
@@ -124,7 +130,7 @@ function CheckoutForm() {
           <Button type="submit" w="100%" h="2rem">
             Tiến hành thanh toán
           </Button>
-        </Div>
+        </Div> */}
       </form>
     </Div>
   );
