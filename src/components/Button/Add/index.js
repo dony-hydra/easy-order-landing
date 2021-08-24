@@ -1,36 +1,39 @@
-import { useState } from "react";
-import { Div, Button, Icon, Text } from "atomize";
+import { useState, useContext, useEffect } from "react";
+import { Button, Text } from "atomize";
 
 import QuantityBtn from "../Quantity";
 
-function AddButton() {
-  const [isAdd, setIsAdd] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+import ShopContext from "../../../context/ShopContext";
+
+function AddButton({ data }) {
+  //   const [isAdd, setIsAdd] = useState(false);
+  const { addProductToCart, removeProductFromCart } = useContext(ShopContext);
 
   const handleAdd = () => {
-    setIsAdd(true);
-    setQuantity(1);
+    // setIsAdd(true);
+    addProductToCart({
+      ...data,
+    });
   };
 
   const handelIncrease = () => {
-    setQuantity(quantity + 1);
+    addProductToCart({
+      ...data,
+    });
   };
+
   const handelReduced = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    } else {
-      setIsAdd(false);
-      setQuantity(0);
-    }
+    console.log("1");
+    removeProductFromCart(data?.id);
   };
 
   return (
     <>
-      {isAdd ? (
+      {data?.quantity > 0 ? (
         <QuantityBtn
           handelIncrease={handelIncrease}
           handelReduced={handelReduced}
-          quantity={quantity}
+          quantity={data?.quantity ?? 0}
         />
       ) : (
         <Button

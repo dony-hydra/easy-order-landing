@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button, Icon, Text, Div } from "atomize";
 
 import QuantityBtn from "../Button/Quantity";
 
-function CartItem() {
-  const [quantity, setQuantity] = useState(0);
+import ShopContext from "../../context/ShopContext";
+
+function CartItem({ item }) {
+  const { removeProductFromCart, addProductToCart } = useContext(ShopContext);
 
   const handelIncrease = () => {
-    setQuantity(quantity + 1);
+    addProductToCart(item);
   };
+
   const handelReduced = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    } else {
-      setQuantity(0);
-    }
+    removeProductFromCart(item?.id);
   };
+  const removeProduct = () => {
+    removeProductFromCart(item?.id);
+  };
+
   return (
     <Div
       m={{ b: "1rem" }}
@@ -26,17 +29,23 @@ function CartItem() {
       justify="space-between"
     >
       <Div
-        bgImg="https://images.unsplash.com/photo-1559963629-38ed0fbd4c86?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-        bgSize="cover"
+        bgImg={item?.image}
+        bgSize="contain"
         bgPos="center"
+        bgRepeat="no-repeat"
         w="5rem"
       />
       <Div
         //   minW="235px"
         p={{ xs: "0.3rem", sm: "0.5rem" }}
       >
-        <Text tag="p" textWeight="600" p={{ xs: "0.3rem", sm: "0.5rem" }}>
-          Dưa chuột baby (Dưa leo baby)
+        <Text
+          tag="p"
+          textWeight="600"
+          w="280px"
+          p={{ xs: "0.3rem", sm: "0.5rem" }}
+        >
+          {item?.title ?? ""}
         </Text>
         <Div
           d="flex"
@@ -44,12 +53,12 @@ function CartItem() {
           p={{ xs: "0.3rem", sm: "0.5rem" }}
         >
           <Text tag="p" textColor="danger700" textWeight="700">
-            21,000 đ
+            {`${item?.price ?? 0} đ`}
           </Text>
           <QuantityBtn
             handelIncrease={handelIncrease}
             handelReduced={handelReduced}
-            quantity={quantity}
+            quantity={item?.quantity}
           />
         </Div>
       </Div>
@@ -60,9 +69,7 @@ function CartItem() {
         hoverTextColor="info900"
         bg="white"
         textAlign="center"
-        onClick={() => {
-          console.log("1");
-        }}
+        onClick={removeProduct}
       >
         <Icon name="Cross" size="10px" />
       </Div>

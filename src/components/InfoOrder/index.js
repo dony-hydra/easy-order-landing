@@ -1,6 +1,14 @@
-import { Input, Dropdown, Anchor, Div, Button, Col, Text } from "atomize";
+import { Div, Text } from "atomize";
+import { useContext } from "react";
+
+import ShopContext from "../../context/ShopContext";
+
+// utils
+import { sumTotalPrice } from "../../utils";
 
 function InfoOrder() {
+  const { cart } = useContext(ShopContext);
+
   return (
     <Div>
       <Text textSize="subheader" textWeight="500" m={{ b: "0.5rem" }}>
@@ -24,27 +32,32 @@ function InfoOrder() {
       </Div>
 
       <Div shadow="3" p={{ xs: "1rem" }} rounded="md" bg="white">
-        <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
+        {cart.map((e, i) => (
+          <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
+            <Text>
+              {`${e?.quantity}`} x {e?.title}
+            </Text>
+            <Text>{e?.quantity * e?.price}đ</Text>
+          </Div>
+        ))}
+
+        {/* <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
           <Text>1 x Dưa leo</Text>
           <Text>10.000đ</Text>
-        </Div>
-        <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
-          <Text>1 x Dưa leo</Text>
-          <Text>10.000đ</Text>
-        </Div>
+        </Div> */}
         <hr />
         <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
           <Text>Phí vận chuyển</Text>
-          <Text>10.000đ</Text>
+          <Text>0đ</Text>
         </Div>
         <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
           <Text>Giảm giá</Text>
-          <Text textColor="success700">10.000đ</Text>
+          <Text textColor="success700">- 0đ</Text>
         </Div>
         <hr />
         <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
           <Text textWeight="700">Thành tiền</Text>
-          <Text textWeight="700">120.000đ</Text>
+          <Text textWeight="700">{`${sumTotalPrice(cart)} đ`}</Text>
         </Div>
       </Div>
     </Div>

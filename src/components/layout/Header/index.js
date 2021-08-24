@@ -8,8 +8,8 @@ function Header() {
       <Container>
         <Row>
           <Col size="12">
-            <Text tag="h1" textSize="display1" m={{ b: "0.5rem" }}>
-              Danh mục sản phẩm
+            <Text textSize="title" m={{ b: "0.5rem" }}>
+              Chọn sản phẩm
             </Text>
           </Col>
           <Col ize="12">

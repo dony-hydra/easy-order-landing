@@ -1,18 +1,46 @@
 import { Icon, Div, Button, Text } from "atomize";
+import { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 import InfoForm from "../../components/Form/Info";
 import PaymentMethodForm from "../../components/Form/PaymentMethod";
 import InfoOrder from "../../components/InfoOrder";
+
+import ShopContext from "../../context/ShopContext";
+
+// utils
+import { sumTotalPrice } from "../../utils";
+
 function Checkout() {
+  const totalStep = 2;
+  const [step, setStep] = useState(1);
+  const { cart } = useContext(ShopContext);
+  let history = useHistory();
+
+  const handleNextStep = () => {
+    setStep(step + 1);
+  };
+
+  const handlePrevious = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    } else {
+      history.push({
+        pathname: "/",
+        state: {
+          isShowCart: true,
+        },
+      });
+    }
+  };
   return (
     <Div bg="gray100">
       <Div
         p={{ xs: "1rem" }}
-        m={{ b: "1rem" }}
+        pos="fixed"
+        w="100%"
         bg="white"
         d="flex"
-        // border="1px solid"
-        // borderColor="gray600"
         style={{ borderBottom: "1px solid #c9ced6" }}
       >
         <Button
@@ -26,8 +54,13 @@ function Checkout() {
           hoverBg="info200"
           borderColor="info700"
           hoverBorderColor="info900"
+          onClick={handlePrevious}
         >
-          <Icon name="LeftArrow" size="20px" />
+          {step > 1 ? (
+            <Icon name="LeftArrow" size="20px" />
+          ) : (
+            <Icon name="Cross" size="20px" />
+          )}
         </Button>
         <Text
           tag="h3"
@@ -40,10 +73,50 @@ function Checkout() {
           Xác nhận đơn hàng
         </Text>
       </Div>
-      <Div p={{ xs: "1rem" }}>
-        <InfoForm />
-        <PaymentMethodForm />
-        <InfoOrder />
+      <Div p={{ xs: "1rem" }} overflow="scroll" h="100vh">
+        <Div m={{ t: "65px" }} p={{ b: "10rem" }}>
+          {step === 1 && <InfoForm />}
+          {step === 2 && (
+            <>
+              <PaymentMethodForm />
+              <InfoOrder />
+            </>
+          )}
+        </Div>
+      </Div>
+      <Div
+        p={{ xs: "1rem" }}
+        bg="white"
+        d="fex"
+        w="100%"
+        bottom="0"
+        pos="fixed"
+        shadow="3"
+      >
+        <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
+          <Div w="100%">
+            <Text>
+              {step < totalStep ? "Tạm tính" : "Tổng tiền (đã có VAT)"}
+            </Text>
+          </Div>
+          <Div w="100%" textAlign="right">
+            <Text textColor="danger700" textWeight="800">
+              {`${sumTotalPrice(cart)} đ`}
+            </Text>
+          </Div>
+        </Div>
+        <Button
+          w="100%"
+          shadow="2"
+          hoverShadow="4"
+          bg="info700"
+          hoverBg="info600"
+          textWeight="700"
+          h="2rem"
+          onClick={() => (step < totalStep ? handleNextStep() : () => {})}
+        >
+          {step < totalStep ? "Tiếp theo" : "Đặt hàng"}
+        </Button>
       </Div>
     </Div>
   );
