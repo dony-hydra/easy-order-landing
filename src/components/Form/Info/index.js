@@ -1,29 +1,83 @@
-import { Input, Dropdown, Anchor, Div, Button, Col, Text } from "atomize";
+import { Input, Div, Button, Text } from "atomize";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import Select from "react-select";
+import axios from "axios";
 
-const menuList = (
-  <Div p={{ xs: "0.5rem" }}>
-    {["Option 1", "Option 2", "Option 3"].map((name, index) => (
-      <Anchor d="block" p={{ y: "0.25rem" }}>
-        {name}
-      </Anchor>
-    ))}
-  </Div>
-);
-
-function CheckoutForm() {
+function CheckoutForm({ handleNextStep, handelSetFormData }) {
   const {
-    register,
     handleSubmit,
-    watch,
+    control,
+    getValues,
     formState: { errors },
   } = useForm();
-  const [showDropdownCity, setShowDropdownCity] = useState(false);
-  const [showDropdownDist, setShowDropdownDist] = useState(false);
-  const [showDropdownWard, setShowDropdownWard] = useState(false);
 
-  const onSubmit = (data) => console.log(data);
+  const [city, setCity] = useState([]);
+  const [dist, setDist] = useState([]);
+  const [ward, setWard] = useState([]);
+
+  const handelGetCity = () => {
+    axios
+      .get("https://provinces.open-api.vn/api/")
+      .then(function (response) {
+        // handle success
+        setCity(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+  const handelGetDist = (code) => {
+    axios
+      .get(`https://provinces.open-api.vn/api/p/${code}`, {
+        params: {
+          depth: 2,
+        },
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+        setDist(response?.data?.districts);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  const handelGetWard = (code) => {
+    setWard([]);
+    axios
+      .get(`https://provinces.open-api.vn/api/d/${code}`, {
+        params: {
+          depth: 2,
+        },
+      })
+      .then(function (response) {
+        // handle success
+        setWard(response?.data?.wards);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  const onSubmit = (data) => {
+    console.log("onSubmit", data);
+    handelSetFormData(data);
+    handleNextStep();
+  };
 
   return (
     <Div>
@@ -41,83 +95,136 @@ function CheckoutForm() {
           <Div m={{ y: "1rem" }}>
             {/* <Text>Họ và tên:</Text> */}
             {/* register your input into the hook by invoking the "register" function */}
-            <Input
-              {...register("example")}
-              placeholder="Họ và tên"
-              h="2rem"
-              //   bg="gray300"
-              //   hoverBg="white"
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input {...field} placeholder="Họ và tên" h="2rem" />
+              )}
+              rules={{
+                required: true,
+              }}
             />
+            {errors.name && <span>This field is required</span>}
           </Div>
           <Div m={{ y: "1rem" }}>
-            {/* <Text>Số điện thoại:</Text> */}
-            {/* include validation with required or other standard HTML validation rules */}
-            <Input
-              {...register("phone", { required: true })}
-              placeholder="Nhập số điện thoại"
-              h="2rem"
+            <Controller
+              name="phone"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input {...field} placeholder="Nhập số điện thoại" h="2rem" />
+              )}
+              rules={{
+                required: true,
+              }}
+            />
+            {errors.phone && <span>This field is required</span>}
+          </Div>
+          <Div m={{ y: "1rem" }}>
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="Chọn Thành phố"
+                  onFocus={() => {
+                    handelGetCity();
+                  }}
+                  //   onChange={(optionSelected) => {
+                  //     handelGetDist(optionSelected.code);
+                  //     return optionSelected;
+                  //   }}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.codename}
+                  options={city}
+                />
+              )}
+              rules={{
+                required: true,
+              }}
             />
             {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.city && <span>This field is required</span>}
           </Div>
           <Div m={{ y: "1rem" }}>
-            {/* <Text>Địa chỉ</Text> */}
-            {/* include validation with required or other standard HTML validation rules */}
-            <Input
-              {...register("address", { required: true })}
-              placeholder="Địa chỉ"
-              h="2rem"
+            <Controller
+              name="dist"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  onFocus={() => {
+                    const citySelect = getValues("city");
+                    handelGetDist(citySelect?.code);
+                  }}
+                  //   onChange={(optionSelected) => {
+                  //     handelGetWard(optionSelected.code);
+                  //     return optionSelected;
+                  //   }}
+                  placeholder="Chọn Quận/Huyện"
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.codename}
+                  options={dist}
+                />
+              )}
+              rules={{
+                required: true,
+              }}
             />
             {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.dist && <span>This field is required</span>}
           </Div>
           <Div m={{ y: "1rem" }}>
-            {/* <Text>Thành phố:</Text> */}
-            {/* include validation with required or other standard HTML validation rules */}
-            <Dropdown
-              isOpen={showDropdownCity}
-              onClick={() => setShowDropdownCity(!showDropdownCity)}
-              menu={menuList}
-              h="2rem"
-            >
-              Chọn Thành phố
-            </Dropdown>
+            <Controller
+              name="ward"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="Chọn Phường/Xã"
+                  onFocus={() => {
+                    const distSelected = getValues("dist");
+                    handelGetWard(distSelected.code);
+                  }}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.codename}
+                  options={ward}
+                />
+              )}
+              rules={{
+                required: true,
+              }}
+            />
             {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.dist && <span>This field is required</span>}
           </Div>
           <Div m={{ y: "1rem" }}>
-            {/* <Text>Quận/Huyện:</Text> */}
-            {/* include validation with required or other standard HTML validation rules */}
-            <Dropdown
-              isOpen={showDropdownDist}
-              onClick={() => setShowDropdownDist(!showDropdownDist)}
-              menu={menuList}
-              h="2rem"
-            >
-              Chọn Quận/Huyện
-            </Dropdown>
-            {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
-          </Div>
-
-          <Div m={{ y: "1rem" }}>
-            {/* <Text>Phường/Xã:</Text> */}
-            {/* include validation with required or other standard HTML validation rules */}
-            <Dropdown
-              isOpen={showDropdownWard}
-              onClick={() => setShowDropdownWard(!showDropdownWard)}
-              menu={menuList}
-              h="2rem"
-            >
-              Chọn Phường/Xã
-            </Dropdown>
-            {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
+            {/* <Text>Họ và tên:</Text> */}
+            {/* register your input into the hook by invoking the "register" function */}
+            <Controller
+              name="address"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="Số nhà, căn hộ, tên đường"
+                  h="2rem"
+                />
+              )}
+              rules={{
+                required: true,
+              }}
+            />
+            {errors.address && <span>This field is required</span>}
           </Div>
         </Div>
 
-        {/* <Div shadow="2" p={{ xs: "1rem" }} rounded="md" bg="white">
-          <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
+        <Div shadow="2" p={{ xs: "1rem" }} rounded="md" bg="white">
+          {/* <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
             <Div w="100%">
               <Text>Tạm tính</Text>
             </Div>
@@ -126,11 +233,11 @@ function CheckoutForm() {
                 593,850đ
               </Text>
             </Div>
-          </Div>
+          </Div> */}
           <Button type="submit" w="100%" h="2rem">
             Tiến hành thanh toán
           </Button>
-        </Div> */}
+        </Div>
       </form>
     </Div>
   );

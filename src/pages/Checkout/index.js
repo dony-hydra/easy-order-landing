@@ -14,11 +14,16 @@ import { sumTotalPrice } from "../../utils";
 function Checkout() {
   const totalStep = 2;
   const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({});
   const { cart } = useContext(ShopContext);
   let history = useHistory();
 
   const handleNextStep = () => {
     setStep(step + 1);
+  };
+
+  const handelSetFormData = (data) => {
+    setFormData({ ...formData, ...data });
   };
 
   const handlePrevious = () => {
@@ -33,6 +38,8 @@ function Checkout() {
       });
     }
   };
+
+  console.log("formData", formData);
   return (
     <Div bg="gray100">
       <Div
@@ -75,11 +82,20 @@ function Checkout() {
       </Div>
       <Div p={{ xs: "1rem" }} overflow="scroll" h="100vh">
         <Div m={{ t: "65px" }} p={{ b: "10rem" }}>
-          {step === 1 && <InfoForm />}
+          {step === 1 && (
+            <InfoForm
+              handleNextStep={handleNextStep}
+              handelSetFormData={handelSetFormData}
+            />
+          )}
           {step === 2 && (
             <>
               <PaymentMethodForm />
-              <InfoOrder />
+              <InfoOrder
+                name={formData?.name || ""}
+                phone={formData?.phone || ""}
+                address={`${formData?.address}, ${formData?.ward.name}, ${formData?.dist.name}, ${formData?.city.name}`}
+              />
             </>
           )}
         </Div>

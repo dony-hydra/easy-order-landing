@@ -6,7 +6,7 @@ import ShopContext from "../../context/ShopContext";
 // utils
 import { sumTotalPrice } from "../../utils";
 
-function InfoOrder() {
+function InfoOrder({ name, phone, address }) {
   const { cart } = useContext(ShopContext);
 
   return (
@@ -22,11 +22,14 @@ function InfoOrder() {
         bg="white"
       >
         <Div>
-          <Text>Trần Trung - 0973607527</Text>
+          <Text>
+            {name} - {phone}
+          </Text>
         </Div>
         <Div>
           <Text>
-            269 Liên Phường, phường Phước Long B, Tp Thủ Đức, Tp Hồ Chí Minh
+            {address}
+            {/* 269 Liên Phường, phường Phước Long B, Tp Thủ Đức, Tp Hồ Chí Minh */}
           </Text>
         </Div>
       </Div>
