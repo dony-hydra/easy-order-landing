@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Button, Text } from "atomize";
+import { Button, Text, Icon } from "atomize";
 
 import QuantityBtn from "../Quantity";
 
@@ -39,22 +39,23 @@ function AddButton({ data }) {
           h="2rem"
           p={{ x: "0.75rem" }}
           textSize="caption"
-          textColor="info700"
-          hoverTextColor="info900"
+          textColor="#42c0c0"
+          hoverTextColor="white"
           border="1px solid"
-          borderColor="info700"
-          hoverBorderColor="info900"
+          borderColor="#42c0c0"
+          hoverBorderColor="#42c0c0"
           m={{ r: "0.5rem" }}
           w="100%"
-          bg="info300"
-          hoverBg="info400"
+          //   bg="#42c0c0"
+          bg="white"
+          hoverBg="#42c0c0"
           rounded="lg"
           onClick={handleAdd}
           cursor="pointer"
         >
-          {/* <Icon name="Bag" size="15px" color="info700" /> */}
+          {/* <Icon name="Add" size="20px" color="#42c0c0" hoverColor="white" /> */}
           <Text textWeight="700" size="1rem" m={{ l: "0.5rem" }}>
-            Thêm
+            Thêm vào giỏ
           </Text>
         </Button>
       )}

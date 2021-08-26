@@ -42,7 +42,7 @@ function CartItem({ item }) {
         <Text
           tag="p"
           textWeight="600"
-          w="280px"
+          w={{ xs: "250px" }}
           p={{ xs: "0.3rem", sm: "0.5rem" }}
         >
           {item?.title ?? ""}

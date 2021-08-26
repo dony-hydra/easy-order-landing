@@ -40,29 +40,21 @@ function CategoryList() {
       style={{ whiteSpace: "nowrap" }}
     >
       {categories.length === 0 && <CategorySkeleton />}
-      {categories.length !== 0 && (
-        <Div
-          d="inline-block"
-          textAlign="center"
-          align="center"
-          overflow="hidden"
-          m={{ l: "0.6rem", r: "0.6rem" }}
-        >
-          <Button
-            h="2.5rem"
-            w="2.5rem"
-            bg="danger300"
-            hoverBg="danger400"
-            rounded="lg"
-            m={{ r: "1rem" }}
-            style={{ margin: "0 auto" }}
-            onClick={() => getListProduct()}
-          >
-            <Icon name="HeartSolid" size="20px" color="danger700" />
-          </Button>
-          <Text>All</Text>
-        </Div>
-      )}
+      <Div
+        d="inline-block"
+        textAlign="center"
+        align="center"
+        overflow="hidden"
+        m={{ l: "0.6rem", r: "0.6rem" }}
+        p="0.5rem"
+        //   h="80px"
+        bg="white"
+        rounded="xl"
+        onClick={() => getListProduct()}
+        shadow="3"
+      >
+        All products
+      </Div>
 
       {categories.map((category, i) => (
         <Div
@@ -72,20 +64,14 @@ function CategoryList() {
           key={i}
           overflow="hidden"
           m={{ l: "0.6rem", r: "0.6rem" }}
+          p="0.5rem"
+          //   h="80px"
+          bg="white"
+          rounded="xl"
+          onClick={() => getProductByCategory(category)}
+          shadow="3"
         >
-          <Button
-            h="2.5rem"
-            w="2.5rem"
-            bg="danger300"
-            hoverBg="danger400"
-            rounded="lg"
-            m={{ r: "1rem" }}
-            style={{ margin: "0 auto" }}
-            onClick={() => getProductByCategory(category)}
-          >
-            <Icon name="HeartSolid" size="20px" color="danger700" />
-          </Button>
-          <Text>{category}</Text>
+          {category}
         </Div>
       ))}
     </Div>

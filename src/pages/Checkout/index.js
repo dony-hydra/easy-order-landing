@@ -89,51 +89,54 @@ function Checkout() {
             />
           )}
           {step === 2 && (
-            <>
+            <Div maxW="600px" style={{ margin: "0 auto" }}>
               <PaymentMethodForm />
               <InfoOrder
                 name={formData?.name || ""}
                 phone={formData?.phone || ""}
                 address={`${formData?.address}, ${formData?.ward.name}, ${formData?.dist.name}, ${formData?.city.name}`}
               />
-            </>
+            </Div>
           )}
         </Div>
       </Div>
-      <Div
-        p={{ xs: "1rem" }}
-        bg="white"
-        d="fex"
-        w="100%"
-        bottom="0"
-        pos="fixed"
-        shadow="3"
-      >
-        <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
-          <Div w="100%">
-            <Text>
-              {step < totalStep ? "Tạm tính" : "Tổng tiền (đã có VAT)"}
-            </Text>
-          </Div>
-          <Div w="100%" textAlign="right">
-            <Text textColor="danger700" textWeight="800">
-              {`${sumTotalPrice(cart)} đ`}
-            </Text>
+      {step === 2 && (
+        <Div
+          p={{ xs: "1rem" }}
+          bg="white"
+          d="fex"
+          w="100%"
+          bottom="0"
+          pos="fixed"
+          shadow="3"
+        >
+          <Div maxW="600px" style={{ margin: "0 auto" }}>
+            <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
+              <Div w="100%">
+                <Text>
+                  {step < totalStep ? "Tạm tính" : "Tổng tiền (đã có VAT)"}
+                </Text>
+              </Div>
+              <Div w="100%" textAlign="right">
+                <Text textColor="danger700" textWeight="800">
+                  {`${sumTotalPrice(cart)} đ`}
+                </Text>
+              </Div>
+            </Div>
+            <Button
+              w="100%"
+              shadow="2"
+              hoverShadow="4"
+              bg="#42c0c0"
+              textWeight="700"
+              h="2rem"
+              onClick={() => (step < totalStep ? handleNextStep() : () => {})}
+            >
+              {step < totalStep ? "Tiếp theo" : "Đặt hàng"}
+            </Button>
           </Div>
         </Div>
-        <Button
-          w="100%"
-          shadow="2"
-          hoverShadow="4"
-          bg="info700"
-          hoverBg="info600"
-          textWeight="700"
-          h="2rem"
-          onClick={() => (step < totalStep ? handleNextStep() : () => {})}
-        >
-          {step < totalStep ? "Tiếp theo" : "Đặt hàng"}
-        </Button>
-      </Div>
+      )}
     </Div>
   );
 }

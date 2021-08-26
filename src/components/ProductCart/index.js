@@ -5,10 +5,12 @@ import AddButton from "../Button/Add";
 function ProductCart({ title, price, image, item }) {
   return (
     <Div
+      bg="white"
       rounded="lg"
       overflow="hidden"
-      border="1px solid"
-      borderColor="#EAEAEA"
+      shadow="2"
+      //   border="1px solid"
+      //   borderColor="#EAEAEA"
       m={{ b: { xs: "1rem", md: "1rem" } }}
     >
       <Div

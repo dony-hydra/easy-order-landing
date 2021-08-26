@@ -12,9 +12,23 @@ import CartItem from "./CartItem";
 import { sumTotalPrice } from "../../utils";
 
 const DivCart = styled.div`
-  position: fixed;
   right: 0;
-  bottom: 25px;
+  bottom: 5px;
+  width: 320px;
+  margin: 1% auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #fff;
+  min-height: 60px;
+  border-radius: 53px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 9;
+  box-shadow: 0 0 20px 0 rgb(10 36 81 / 8%);
 `;
 
 const BasicSideDrawer = ({ isOpen, onClose }) => {
@@ -82,8 +96,8 @@ const BasicSideDrawer = ({ isOpen, onClose }) => {
             w="100%"
             shadow="2"
             hoverShadow="4"
-            bg="info700"
-            hoverBg="info600"
+            bg="#42c0c0"
+            // hoverBg="info600"
             textWeight="700"
             onClick={handelStepPayment}
           >
@@ -96,22 +110,33 @@ const BasicSideDrawer = ({ isOpen, onClose }) => {
 };
 
 function Cart() {
+  const { cart } = useContext(ShopContext);
   const [showSideDrawer, setShowSideDrawer] = useState(false);
   return (
     <>
-      <DivCart>
+      <DivCart d="flex" justify="space-between">
         <Button
           h="2.5rem"
           w="2.5rem"
-          bg="info700"
-          hoverBg="info600"
+          bg="#42c0c0"
+          //   hoverBg="info600"
           rounded="circle"
           m={{ r: "1rem" }}
           shadow="3"
           hoverShadow="4"
-          onClick={() => setShowSideDrawer(true)}
         >
           <Icon name="Bag" size="20px" color="white" />
+        </Button>
+        <Div>
+          <Text>Tổng đơn hàng</Text>
+          <Text textWeight="700">{`${sumTotalPrice(cart)} đ`}</Text>
+        </Div>
+        <Button
+          rounded="circle"
+          bg="#42c0c0"
+          onClick={() => setShowSideDrawer(true)}
+        >
+          Giỏ hàng
         </Button>
       </DivCart>
       <BasicSideDrawer

@@ -80,7 +80,7 @@ function CheckoutForm({ handleNextStep, handelSetFormData }) {
   };
 
   return (
-    <Div>
+    <Div maxW="600px" style={{ margin: "0 auto" }}>
       <Text textSize="subheader" textWeight="500" m={{ b: "0.5rem" }}>
         Thông tin người nhận hàng
       </Text>
@@ -221,22 +221,11 @@ function CheckoutForm({ handleNextStep, handelSetFormData }) {
             />
             {errors.address && <span>This field is required</span>}
           </Div>
-        </Div>
-
-        <Div shadow="2" p={{ xs: "1rem" }} rounded="md" bg="white">
-          {/* <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
-            <Div w="100%">
-              <Text>Tạm tính</Text>
-            </Div>
-            <Div>
-              <Text textColor="danger700" textWeight="800">
-                593,850đ
-              </Text>
-            </Div>
-          </Div> */}
-          <Button type="submit" w="100%" h="2rem">
-            Tiến hành thanh toán
-          </Button>
+          <Div>
+            <Button type="submit" w="100%" h="2rem" bg="#42c0c0">
+              Tiến hành thanh toán
+            </Button>
+          </Div>
         </Div>
       </form>
     </Div>
