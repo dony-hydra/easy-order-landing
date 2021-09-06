@@ -32,7 +32,7 @@ function Header() {
             <Input
               placeholder="Bạn tìm gì hôm nay ?"
               bg="white"
-              h="3rem"
+              h="2.5rem"
               rounded="xl"
               shadow="4"
               color="white"
