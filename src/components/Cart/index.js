@@ -40,8 +40,8 @@ const BasicSideDrawer = ({ isOpen, onClose }) => {
   };
 
   return (
-    <SideDrawer isOpen={isOpen} onClose={onClose} bg="gray200" p={{ xs: "0" }}>
-      <Div p={{ xs: "1rem" }} m={{ b: "1rem" }} shadow="3" bg="white" d="flex">
+    <SideDrawer isOpen={isOpen} onClose={onClose} bg="white" p={{ xs: "0" }}>
+      <Div p={{ xs: "1rem" }} m={{ b: "1rem" }} bg="white" d="flex">
         <Button
           h="2rem"
           p={{ x: "0.75rem" }}
@@ -58,47 +58,39 @@ const BasicSideDrawer = ({ isOpen, onClose }) => {
           <Icon name="Cross" size="20px" />
         </Button>
         <Text
-          tag="h1"
-          textWeight="800"
+          textSize="title"
           textAlign="center"
+          d="block"
+          w="100%"
           style={{ lineHeight: "30px" }}
         >
           Giỏ hàng của bạn
         </Text>
       </Div>
-      <Div p={{ x: "1rem" }} h="75vh" overflow="scroll">
-        {/* {[...Array(10)].map((e, i) => ( */}
+      <Div p={{ x: "1rem" }}>
         {cart.map((e, i) => (
           <CartItem key={i} item={e} />
         ))}
       </Div>
       {cart.length !== 0 && (
-        <Div
-          p={{ xs: "1rem" }}
-          bg="white"
-          d="fex"
-          w="100%"
-          bottom="0"
-          pos="absolute"
-          shadow="3"
-        >
+        <Div p={{ xs: "1rem" }} d="fex" w="100%">
           <Div d="flex" w="100%" align="space-between" m={{ b: "1rem" }}>
             <Div w="100%">
               <Text>Tạm tính</Text>
             </Div>
             <Div w="100%" textAlign="right">
-              <Text textColor="danger700" textWeight="800">
+              <Text textSize="title" textColor="danger700" textWeight="800">
                 {`${sumTotalPrice(cart)} đ`}
               </Text>
             </Div>
           </Div>
           <Button
             w="100%"
-            shadow="2"
+            h="3rem"
             hoverShadow="4"
-            bg="#42c0c0"
-            // hoverBg="info600"
+            bg="#40aa54"
             textWeight="700"
+            rounded="xl"
             onClick={handelStepPayment}
           >
             Tiếp theo
@@ -118,8 +110,7 @@ function Cart() {
         <Button
           h="2.5rem"
           w="2.5rem"
-          bg="#42c0c0"
-          //   hoverBg="info600"
+          bg="#40aa54"
           rounded="circle"
           m={{ r: "1rem" }}
           shadow="3"
@@ -133,7 +124,7 @@ function Cart() {
         </Div>
         <Button
           rounded="circle"
-          bg="#42c0c0"
+          bg="#40aa54"
           onClick={() => setShowSideDrawer(true)}
         >
           Giỏ hàng

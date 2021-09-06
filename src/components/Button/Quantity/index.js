@@ -1,35 +1,51 @@
-import { Div, Icon, Button, Text } from "atomize";
+import { Div, Icon, Text } from "atomize";
 
 function QuantityBtn({ handelReduced, handelIncrease, quantity = 0 }) {
   return (
     <Div textAlign="center">
-      <Button
+      <Div
         onClick={handelReduced}
         d="inline-block"
-        h="1.5rem"
-        bg="gray300"
+        h="2rem"
+        bg="white"
+        border="0.5px solid"
+        borderColor="gray300"
         hoverBg="gray400"
         rounded="lg"
-        shadow="2"
         p={{ x: "0.75rem" }}
+        cursor="pointer"
       >
-        <Icon name="Minus" size="10px" color="gray700" />
-      </Button>
+        <Icon
+          name="Minus"
+          size="15px"
+          color="#40aa54"
+          d="inline-block"
+          style={{ verticalAlign: "middle" }}
+        />
+      </Div>
       <Text d="inline-block" w="32px" h="25px">
         {quantity}
       </Text>
-      <Button
+      <Div
         onClick={handelIncrease}
         d="inline-block"
-        h="1.5rem"
-        bg="gray300"
+        h="2rem"
+        bg="white"
+        border="0.5px solid"
+        borderColor="gray300"
         hoverBg="gray400"
         rounded="lg"
-        shadow="2"
         p={{ x: "0.75rem" }}
+        cursor="pointer"
       >
-        <Icon name="Plus" size="10px" color="gray700" />
-      </Button>
+        <Icon
+          name="Plus"
+          size="15px"
+          color="#40aa54"
+          d="inline-block"
+          style={{ verticalAlign: "middle" }}
+        />
+      </Div>
     </Div>
   );
 }

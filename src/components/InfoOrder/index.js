@@ -1,40 +1,22 @@
-import { Div, Text } from "atomize";
+import { Div, Text, Button } from "atomize";
 import { useContext } from "react";
+import styled from "styled-components";
 
 import ShopContext from "../../context/ShopContext";
 
 // utils
 import { sumTotalPrice } from "../../utils";
 
+const BorderBottom = styled.hr`
+  border-top: 2px dashed #f1f2f4;
+`;
+
 function InfoOrder({ name, phone, address }) {
   const { cart } = useContext(ShopContext);
 
   return (
     <Div>
-      <Text textSize="subheader" textWeight="500" m={{ b: "0.5rem" }}>
-        Thông tin đơn hàng
-      </Text>
-      <Div
-        shadow="3"
-        p={{ xs: "1rem" }}
-        m={{ b: "0.5rem" }}
-        rounded="md"
-        bg="white"
-      >
-        <Div>
-          <Text>
-            {name} - {phone}
-          </Text>
-        </Div>
-        <Div>
-          <Text>
-            {address}
-            {/* 269 Liên Phường, phường Phước Long B, Tp Thủ Đức, Tp Hồ Chí Minh */}
-          </Text>
-        </Div>
-      </Div>
-
-      <Div shadow="3" p={{ xs: "1rem" }} rounded="md" bg="white">
+      <Div p={{ xs: "1rem" }} rounded="xl" bg="white">
         {cart.map((e, i) => (
           <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
             <Text>
@@ -44,11 +26,7 @@ function InfoOrder({ name, phone, address }) {
           </Div>
         ))}
 
-        {/* <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
-          <Text>1 x Dưa leo</Text>
-          <Text>10.000đ</Text>
-        </Div> */}
-        <hr />
+        <BorderBottom />
         <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
           <Text>Phí vận chuyển</Text>
           <Text>0đ</Text>
@@ -57,11 +35,22 @@ function InfoOrder({ name, phone, address }) {
           <Text>Giảm giá</Text>
           <Text textColor="success700">- 0đ</Text>
         </Div>
-        <hr />
+        <BorderBottom />
         <Div d="flex" justify="space-between" p={{ y: "0.5rem" }}>
-          <Text textWeight="700">Thành tiền</Text>
-          <Text textWeight="700">{`${sumTotalPrice(cart)} đ`}</Text>
+          <Text>Thành tiền</Text>
+          <Text textWeight="600">{`${sumTotalPrice(cart)} đ`}</Text>
         </Div>
+        <Button
+          w="100%"
+          h="3rem"
+          bg="#40aa54"
+          shadow="2"
+          hoverShadow="4"
+          textWeight="800"
+          //   onClick={() => (step < totalStep ? handleNextStep() : () => {})}
+        >
+          Đặt hàng
+        </Button>
       </Div>
     </Div>
   );

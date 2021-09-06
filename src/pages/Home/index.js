@@ -6,7 +6,7 @@ import ProductCart from "../../components/ProductCart";
 import ProductCartSkeleton from "../../components/ProductCart/Skeleton";
 import Header from "../../components/layout/Header";
 import Cart from "../../components/Cart";
-import Category from "../../components/Category";
+// import Category from "../../components/Category";
 
 import ShopContext from "../../context/ShopContext";
 
@@ -32,48 +32,41 @@ function HomePage() {
   }, []);
 
   return (
-    <Div bg="gray100" p={{ b: "5rem" }}>
-      <WrapHeader>
-        <Header />
-      </WrapHeader>
-      <Div p={{ t: "8rem" }}>
-        <Container>
-          <Row>
-            <Col size="12">
-              <Text textSize="subheader" textWeight="600">
-                Danh mục sản phẩm
-              </Text>
-              <Category />
-            </Col>
-          </Row>
-          <Row>
-            <Col size="12">
-              <Text textSize="subheader" textWeight="600" p={{ y: "1rem" }}>
-                Sản phẩm
-              </Text>
-            </Col>
-            <>
-              {products.length === 0 &&
-                [...Array(5)].map((e, i) => (
-                  <Col size={{ xs: "6", md: "3" }}>
-                    <ProductCartSkeleton />
-                  </Col>
-                ))}
-            </>
+    <Div bg="white" p={{ b: "5rem" }} maxW="600px" m="0 auto">
+      <Header />
+      <Container>
+        <Row>
+          <Col size="12">
+            <Div w="100%" h="10rem" d="block" rounded="xl" bg="gray300"></Div>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="12">
+            <Text textSize="title" p={{ y: "1rem" }}>
+              Sản phẩm
+            </Text>
+          </Col>
+          <>
+            {products.length === 0 &&
+              [...Array(5)].map((e, i) => (
+                <Col size={{ xs: "6", md: "6" }}>
+                  <ProductCartSkeleton />
+                </Col>
+              ))}
+          </>
 
-            {products.map((e, i) => (
-              <Col size={{ xs: "6", md: "3" }} key={i}>
-                <ProductCart
-                  item={e}
-                  title={e?.title}
-                  price={e?.price}
-                  image={e?.image}
-                />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Div>
+          {products.map((e, i) => (
+            <Col size={{ xs: "6", md: "6" }} key={i}>
+              <ProductCart
+                item={e}
+                title={e?.title}
+                price={e?.price}
+                image={e?.image}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Container>
       <Cart />
     </Div>
   );

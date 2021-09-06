@@ -1,81 +1,60 @@
-import { useState } from "react";
-import {
-  Div,
-  Input,
-  Icon,
-  Container,
-  Row,
-  Col,
-  Text,
-  Tag,
-  Collapse,
-} from "atomize";
+import { Div, Button, Icon, Text, Container, Row, Col } from "atomize";
 
 function Header() {
-  const [showtag, setShowTag] = useState(false);
   return (
-    <Div
-      bg="#ffd400"
-      d="flex"
-      shadow="3"
-      align="center"
-      p={{ t: "0.5rem", b: "1rem" }}
-    >
+    <Div align="center" p={{ y: "1.5rem" }}>
       <Container>
         <Row>
-          <Col size="12">
-            <Text textSize="title" m={{ b: "0.5rem" }} textWeight="900">
-              Store
-            </Text>
-          </Col>
-          <Col ize="12">
-            <Input
-              placeholder="Bạn tìm gì hôm nay ?"
-              bg="white"
-              h="2.5rem"
-              rounded="xl"
-              shadow="4"
-              color="white"
-              border="0"
-              onBlur={() => {
-                setShowTag(false);
-              }}
-              onFocus={() => {
-                setShowTag(true);
-              }}
-              suffix={
-                <Icon
-                  name="Search"
-                  size="20px"
-                  cursor="pointer"
-                  onClick={() => console.log("clicked")}
-                  pos="absolute"
-                  top="50%"
-                  right="1rem"
-                  transform="translateY(-50%)"
-                />
-              }
-            />
-          </Col>
-          <Col size="12">
-            <Collapse isOpen={showtag}>
-              <Div d="flex" flexWrap="wrap" p={{ t: "1rem" }}>
-                {["Thịt", "Cá", "Bia", "Đồ da dụng", "Combo"].map((name) => (
-                  <Tag
-                    bg={`warning100`}
-                    textColor="gray500"
-                    p={{ x: "0.75rem", y: "0.25rem" }}
-                    m={{ r: "0.5rem", b: "0.5rem" }}
-                    textSize="body"
-                    rounded="xl"
-                    shadow="3"
-                    transition
-                  >
-                    {name}
-                  </Tag>
-                ))}
+          <Col>
+            <Div d="flex" justify="space-between">
+              <Div>
+                <Button
+                  h="2.5rem"
+                  w="2.5rem"
+                  rounded="circle"
+                  bg="gray300"
+                  hoverBg="info400"
+                >
+                  <Icon
+                    name="Store"
+                    size="20px"
+                    cursor="pointer"
+                    onClick={() => console.log("clicked")}
+                    color="#40aa54"
+                  />
+                </Button>
               </Div>
-            </Collapse>
+              <Div p={{ x: "1rem" }}>
+                <Text textSize="tiny">Khu vực giao hàng:</Text>
+                <Div>
+                  <Text textWeight="700" cursor="pointer">
+                    Thủ Thiêm Garden
+                    <Icon
+                      name="DownArrow"
+                      size="20px"
+                      style={{ verticalAlign: "sub" }}
+                      color="#40aa54"
+                    />
+                  </Text>
+                </Div>
+              </Div>
+              <Div>
+                <Button
+                  h="2.5rem"
+                  w="2.5rem"
+                  rounded="circle"
+                  bg="gray300"
+                  hoverBg="info400"
+                >
+                  <Icon
+                    name="User"
+                    size="20px"
+                    cursor="pointer"
+                    onClick={() => console.log("clicked")}
+                  />
+                </Button>
+              </Div>
+            </Div>
           </Col>
         </Row>
       </Container>

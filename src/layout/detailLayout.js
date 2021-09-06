@@ -12,14 +12,16 @@ const DetailLayout = ({ children, title }) => {
     });
   };
   return (
-    <Div bg="gray300" minH="100vh">
+    <Div bg="gray200" minH="100vh">
       <Div
         p={{ xs: "1rem" }}
         pos="fixed"
         w="100%"
         bg="white"
         d="flex"
-        style={{ borderBottom: "1px solid #c9ced6" }}
+        style={{ zIndex: "9999" }}
+
+        // style={{ borderBottom: "1px solid #c9ced6" }}
       >
         <Button
           h="2rem"
@@ -37,12 +39,11 @@ const DetailLayout = ({ children, title }) => {
           {/* {step > 1 ? (
             <Icon name="LeftArrow" size="20px" />
           ) : ( */}
-          <Icon name="Cross" size="20px" />
+          <Icon name="LeftArrow" size="20px" />
           {/* )} */}
         </Button>
         <Text
-          tag="h3"
-          textWeight="800"
+          textSize="title"
           textAlign="center"
           d="block"
           w="100%"
@@ -51,7 +52,7 @@ const DetailLayout = ({ children, title }) => {
           {title ?? ""}
         </Text>
       </Div>
-      <Div p="1rem">
+      <Div p="1rem" maxW="600px" m="0 auto">
         <Div m={{ t: "65px" }}>{children}</Div>
       </Div>
     </Div>
