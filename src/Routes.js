@@ -18,6 +18,11 @@ const routerConfig = [
     path: "/order-status",
     component: lazy(() => import("../src/pages/OrderStatus")),
   },
+  {
+    exact: true,
+    path: "/product/:id",
+    component: lazy(() => import("../src/pages/ProductDetail")),
+  },
 ];
 
 const renderRouter = (router) => (

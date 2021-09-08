@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { Container, Row, Col, Div, Text } from "atomize";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import ProductCart from "../../components/ProductCart";
 import ProductCartSkeleton from "../../components/ProductCart/Skeleton";
@@ -12,12 +12,12 @@ import ShopContext from "../../context/ShopContext";
 
 import { get } from "../../service/RestClient";
 
-const WrapHeader = styled.div`
-  position: fixed;
-  border-radius: 0 0 20px 20px;
-  z-index: 999;
-  width: 100%;
-`;
+// const WrapHeader = styled.div`
+//   position: fixed;
+//   border-radius: 0 0 20px 20px;
+//   z-index: 999;
+//   width: 100%;
+// `;
 
 function HomePage() {
   const { products, setListProduct } = useContext(ShopContext);

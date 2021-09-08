@@ -1,9 +1,9 @@
 import { Button, Div, Text, Label, Icon } from "atomize";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 import InfoForm from "../../components/Form/Info";
-import PaymentMethodForm from "../../components/Form/PaymentMethod";
+// import PaymentMethodForm from "../../components/Form/PaymentMethod";
 import InfoOrder from "../../components/InfoOrder";
 import DetailLayout from "../../layout/detailLayout";
 
@@ -16,7 +16,7 @@ function Checkout() {
   //   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(null);
   const [edit, setShowEdit] = useState(true);
-  let history = useHistory();
+//   let history = useHistory();
 
   const handelSetCustomer = (data) => {
     setFormData({ ...formData, ...data });

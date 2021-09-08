@@ -1,7 +1,7 @@
 import { Div, Button, Icon, Text } from "atomize";
 import { useHistory } from "react-router-dom";
 
-const DetailLayout = ({ children, title }) => {
+const DetailLayout = ({ children, title, bg = "gray200" }) => {
   let history = useHistory();
   const handlePrevious = () => {
     history.push({
@@ -12,7 +12,7 @@ const DetailLayout = ({ children, title }) => {
     });
   };
   return (
-    <Div bg="gray200" minH="100vh">
+    <Div bg={bg} minH="100vh">
       <Div
         p={{ xs: "1rem" }}
         pos="fixed"

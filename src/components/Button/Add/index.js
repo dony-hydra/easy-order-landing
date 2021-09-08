@@ -10,6 +10,8 @@ function AddButton({ data }) {
 
   const handleAdd = () => {
     // setIsAdd(true);
+    console.log("data", data);
+
     addProductToCart({
       ...data,
     });

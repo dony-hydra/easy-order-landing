@@ -1,5 +1,6 @@
 import { Div, Text } from "atomize";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 import AddButton from "../Button/Add";
 
@@ -14,6 +15,12 @@ const Title = styled.div`
 `;
 
 function ProductCart({ title, price, image, item }) {
+  let history = useHistory();
+
+  const goToDetail = (id) => {
+    history.push(`/product/${id}`);
+  };
+
   return (
     <Div
       bg="white"
@@ -23,7 +30,7 @@ function ProductCart({ title, price, image, item }) {
       borderColor="gray300"
       m={{ b: { xs: "1rem", md: "1rem" } }}
     >
-      <Div p="0.5rem">
+      <Div p="0.5rem" cursor="pointer" onClick={() => goToDetail(item?.id)}>
         <Div
           bgImg={image}
           bgSize="contain"
@@ -31,6 +38,7 @@ function ProductCart({ title, price, image, item }) {
           bgRepeat="no-repeat"
           h="6rem"
           w="100%"
+          //   style={{ backgroundRepeat: "no-repeat" }}
         />
         <Div m={{ t: "0.5rem" }}>
           <Title>{title ?? ""}</Title>
